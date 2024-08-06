@@ -1,0 +1,46 @@
+JDBC Steps:
+-----------
+
+-> import java.sql.*;
+
+-> load the driver
+	Class.forName("DriverClassName");
+		or
+	DriverManager.registerDriver(driverObj);
+
+-> Establish Connection
+	Connection con = DriverManager.getConnection("URL", "Username", "Password");
+
+-> create a statement
+	Statement st = con.createStatement();
+		//to execute any number of different queries
+	
+	PreparedStatement pst = con.prepareStatement("Query");
+		// to execute a single SQL query for more times
+		// for dynamic queries
+
+	CallableStatement cst = con.prepareCall("Query");
+		// to execute PL/SQL stored programs
+
+-> execute queries
+	boolean b = st.execute("Query");  |  pst.execute();
+		b -> true  -> SELECT
+		b -> false -> DML
+		// to run any Type of Query
+
+	int count = st.executeUpdate("Query")	| pst.executeUpdate();
+		// to run DML (insert, update, delete) commands
+
+	ResultSet rs = st.executeQuery("Query");  | pst.executeQuery();
+		// to run DQL (Select) command
+
+
+-> close the resources
+	rs.close();
+	st.close();
+	con.close();
+
+-> Handle the exceptions
+	generally occured exceptions are
+		1. ClassNotFoundException
+		2. SQLException
